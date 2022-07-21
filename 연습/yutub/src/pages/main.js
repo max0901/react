@@ -2,8 +2,9 @@ import Header from "../components/header";
 import Nav from "../components/nav";
 import Article from "../components/article";
 import { useState } from "react";
+import Create from "../components/create";
 const Main = () => {
-  const topics = [
+  const [topics, setTopics] = useState([
     {
       id: 1,
       title: "html",
@@ -19,12 +20,13 @@ const Main = () => {
       title: "js",
       body: "js is....",
     },
-  ];
+  ]);
   //   const _mode = useState("welcome");
   //   const mode = _mode[0];
   //   const setMode = _mode[1];
   const [mode, setMode] = useState("welcome");
   const [id, setId] = useState(null);
+  const [nextId, setNextid] = useState(4);
   let content = null;
   if (mode === `welcome`) {
     content = <Article title="welcome" body="hell1ow" />;
@@ -38,6 +40,20 @@ const Main = () => {
       }
     }
     content = <Article title={title} body={body} />;
+  } else if (mode === "CREATE") {
+    content = (
+      <Create
+        onCreate={(_title, _body) => {
+          const newTopic = { id: nextId, title: _title, body: _body };
+          const newTopics = [...topics];
+          newTopics.push(newTopic);
+          setTopics(newTopics);
+          setMode("read");
+          setId(nextId);
+          setNextid(nextId + 1);
+        }}
+      />
+    );
   }
 
   return (
@@ -57,6 +73,15 @@ const Main = () => {
         }}
       />
       {content}
+      <a
+        href="/create"
+        onClick={(event) => {
+          event.preventDefault();
+          setMode("CREATE");
+        }}
+      >
+        Create
+      </a>
     </div>
   );
 };
