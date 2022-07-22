@@ -3,6 +3,7 @@ import Nav from "../components/nav";
 import Article from "../components/article";
 import { useState } from "react";
 import Create from "../components/create";
+import Update from "../components/update";
 const Main = () => {
   const [topics, setTopics] = useState([
     {
@@ -28,6 +29,8 @@ const Main = () => {
   const [id, setId] = useState(null);
   const [nextId, setNextid] = useState(4);
   let content = null;
+  let contextControl = null;
+
   if (mode === `welcome`) {
     content = <Article title="welcome" body="hell1ow" />;
   } else if (mode === "read") {
@@ -40,6 +43,37 @@ const Main = () => {
       }
     }
     content = <Article title={title} body={body} />;
+    contextControl = (
+      <>
+        <li>
+          <a
+            href={"/update/" + id}
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("update");
+            }}
+          >
+            update
+          </a>
+        </li>
+        <li>
+          <input
+            type="button"
+            value="Delete"
+            onClick={() => {
+              const newTopics = [];
+              for (let i = 0; i < topics.length; i++) {
+                if (topics[i].id !== id) {
+                  newTopics.push(topics[i]);
+                }
+              }
+              setTopics(newTopics);
+              setMode("welcome");
+            }}
+          />
+        </li>
+      </>
+    );
   } else if (mode === "CREATE") {
     content = (
       <Create
@@ -54,6 +88,33 @@ const Main = () => {
         }}
       />
     );
+  } else if (mode === "update") {
+    let title,
+      body = null;
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+      content = (
+        <Update
+          title={title}
+          body={body}
+          onUpdate={(title, body) => {
+            const newTopics = [...topics];
+            const updatedTopic = { id: id, title: title, body: body };
+            for (let i = 0; i < newTopics.length; i++) {
+              if (newTopics[i].id === id) {
+                newTopics[i] = updatedTopic;
+                break;
+              }
+            }
+            setTopics(newTopics);
+            setMode("read");
+          }}
+        />
+      );
+    }
   }
 
   return (
@@ -73,15 +134,20 @@ const Main = () => {
         }}
       />
       {content}
-      <a
-        href="/create"
-        onClick={(event) => {
-          event.preventDefault();
-          setMode("CREATE");
-        }}
-      >
-        Create
-      </a>
+      <ul>
+        <li>
+          <a
+            href="/create"
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("CREATE");
+            }}
+          >
+            Create
+          </a>
+        </li>
+        {contextControl}
+      </ul>
     </div>
   );
 };
