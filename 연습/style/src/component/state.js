@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 const State = ({ onClickEvent, stateId }) => {
   const [tName, setTname] = useState("");
   const [mName, setMname] = useState("");
+  const nameF = useRef(null);
   const onChangeInputT = (e) => {
     setTname(e.target.value);
   };
@@ -11,6 +12,11 @@ const State = ({ onClickEvent, stateId }) => {
   const onAddStateHandler = () => {
     onClickEvent(stateId + 1, tName, mName);
   };
+  const resetHandeler = () => {
+    setTname("");
+    setMname("");
+    nameF.current.focus();
+  };
   return (
     <>
       <input
@@ -18,6 +24,7 @@ const State = ({ onClickEvent, stateId }) => {
         placeholder="제목입력"
         value={tName}
         onChange={onChangeInputT}
+        ref={nameF}
       />
       <input
         type="text"
@@ -26,7 +33,7 @@ const State = ({ onClickEvent, stateId }) => {
         onChange={onChangeInputM}
       />
       <button onClick={onAddStateHandler}>추가</button>
-      <button>초기화</button>
+      <button onClick={resetHandeler}>초기화</button>
     </>
   );
 };

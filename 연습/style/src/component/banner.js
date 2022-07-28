@@ -22,6 +22,10 @@ const Banner = () => {
   const onClickEvent = (idValue, tValue, mValue) => {
     setLocal([...local, { id: idValue, title: tValue, main: mValue }]);
   };
+  const RemoveHandler = (e) => {
+    const removeState = local.filter((v) => v.id !== parseInt(e.target.value));
+    setLocal(removeState);
+  };
   return (
     <Sec id="wholesale">
       <div id="whol_inner">
@@ -34,6 +38,9 @@ const Banner = () => {
               <WholeImg src="./img/w1.jpg" alt="" />
               <WholeH2>{v.title}</WholeH2>
               <WP>{v.main}</WP>
+              <button value={v.id} onClick={RemoveHandler}>
+                삭제
+              </button>
             </li>
           ))}
         </WholeUl>
