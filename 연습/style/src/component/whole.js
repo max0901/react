@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import State from "./state";
-const Banner = () => {
+const Whole = () => {
   const [local, setLocal] = useState([
     {
       id: 1,
@@ -19,12 +19,21 @@ const Banner = () => {
       main: "산지에서 국내로 입고되어 운송되는 생두가 외부의영향을 최소한으로 받을 수 있도록 철저히 관리합니다.",
     },
   ]);
+  const mouse = useRef(null);
   const onClickEvent = (idValue, tValue, mValue) => {
     setLocal([...local, { id: idValue, title: tValue, main: mValue }]);
   };
   const RemoveHandler = (e) => {
     const removeState = local.filter((v) => v.id !== parseInt(e.target.value));
     setLocal(removeState);
+  };
+  const MouseOver = () => {
+    mouse.current.style.backgroundColor = "white";
+    mouse.current.style.color = "black";
+  };
+  const MouseLeave = () => {
+    mouse.current.style.backgroundColor = "black";
+    mouse.current.style.color = "white";
   };
   return (
     <Sec id="wholesale">
@@ -44,7 +53,15 @@ const Banner = () => {
             </li>
           ))}
         </WholeUl>
-        <Input type="button" value="+ READ MORE" id="button" class="button" />
+        <Input
+          type="button"
+          value="+ READ MORE"
+          id="button"
+          class="button"
+          onMouseOver={MouseOver}
+          onMouseLeave={MouseLeave}
+          ref={mouse}
+        />
         <State
           onClickEvent={onClickEvent}
           stateId={local.length > 0 && local[local.length - 1].id}
@@ -53,7 +70,7 @@ const Banner = () => {
     </Sec>
   );
 };
-export default Banner;
+export default Whole;
 
 const Sec = styled.section`
   width: 1400px;
