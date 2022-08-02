@@ -26,7 +26,6 @@ const Contents = () => {
               {state.map((v) => (
                 <Tbody key={v.id} state={v} />
               ))}
-              <AddForm />
             </table>
             <div id="prev_next">
               <p>
