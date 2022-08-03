@@ -4,7 +4,6 @@ import Reple from "./reple";
 const Container = () => {
   return (
     <>
-      <Banner />
       <section class="post_list">
         {/* <!-- container --> */}
         <p>☀️ 오늘은, 내 친구들에게 어떤 일들이 있어났을까요?</p>

@@ -1,38 +1,22 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { REMOVE } from "../../redux/toy";
 const Reple = () => {
-  const [info, setInfo] = useState([
-    {
-      id: 1,
-      email: "korpg95274",
-      date: "2022.07.21",
-      content: "안녕하세요, 반가운 하루입니다.",
-    },
-    {
-      id: 2,
-      email: "korpg95274",
-      date: "2022.07.21",
-      content: "안녕하세요, 반가운 하루입니다.",
-    },
-    {
-      id: 3,
-      email: "korpg95274",
-      date: "2022.07.21",
-      content: "안녕하세요, 반가운 하루입니다.",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.toy);
   const Remove = useCallback(
     (id) => {
-      const removeState = info.filter((item) => item.id !== id);
-      setInfo(removeState);
+      dispatch({
+        type: REMOVE,
+        id: id,
+      });
     },
-    [info]
+    [state, dispatch]
   );
-  const onClickEvent = (idValue, conValue) => {
-    setInfo([...info, { id: idValue, content: conValue }]);
-  };
+
   return (
     <>
-      {info.map((v) => (
+      {state.map((v) => (
         <>
           {/* <!-- post --> */}
           <article class="post_desc">

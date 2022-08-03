@@ -1,5 +1,9 @@
 import { useState, useCallback } from "react";
-const BlogForm = ({ onClickEvent }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { ADD } from "../../redux/toy";
+const BlogForm = () => {
+  const state = useSelector((state) => state.toy);
+  const dispatch = useDispatch();
   const [write, setWrite] = useState("");
   const ChangeW = useCallback(
     (e) => {
@@ -7,7 +11,17 @@ const BlogForm = ({ onClickEvent }) => {
     },
     [write]
   );
-  const AddWrite = useCallback(() => {});
+  const AddWrite = useCallback(() => {
+    dispatch({
+      type: ADD,
+      id: state[state.length - 1].id + 1,
+      content: write,
+      date: state.date,
+      email: state.email,
+    });
+    setWrite("");
+    console.log(state);
+  }, [state, dispatch, write]);
   return (
     <section id="main_post_list">
       {/* <!-- container --> */}
