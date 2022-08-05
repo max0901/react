@@ -1,4 +1,6 @@
-import Banner from "./banner";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { REMOVE } from "../../redux/toy";
 import Reple from "./reple";
 
 const Container = () => {

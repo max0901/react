@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import AddForm from "./addForm";
 const Contents = () => {
   const state = useSelector((state) => state.list);
+
   return (
     <>
       <contents>

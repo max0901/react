@@ -41,6 +41,7 @@ const AddForm = () => {
     },
     [setDay]
   );
+
   return (
     <div id="content_inner">
       <div id="inner_form">
