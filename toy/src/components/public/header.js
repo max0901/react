@@ -13,8 +13,6 @@ const Header = () => {
             <li>
               <a href="/login">로그인</a>
             </li>
-          </ul>
-          <ul id="header_login_list">
             <li>
               <a href="/myblog">마이블로그</a>
             </li>
@@ -22,6 +20,7 @@ const Header = () => {
               <a href="/chat">채팅</a>{" "}
             </li>
           </ul>
+          <ul id="header_login_list"></ul>
         </div>
       </div>
     </header>

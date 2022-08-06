@@ -33,24 +33,28 @@ const UserList = () => {
     [user]
   );
   return (
-    <ul id="chat_userList_box">
-      {/* <!-- userInfo --> */}
-      {user.map((v) => (
-        <li>
-          <span>{v.name}</span>
-          <ul class="chat_userList_button">
-            <button
-              onClick={() => {
-                Remove(v.id);
-              }}
-            >
-              삭제
-            </button>
-            <li>차단</li>
-          </ul>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul id="chat_userList_box">
+        {/* <!-- userInfo --> */}
+        {user.map((v) => (
+          <li>
+            <span>{v.name}</span>
+            <ul class="chat_userList_button">
+              <button
+                onClick={() => {
+                  Remove(v.id);
+                }}
+              >
+                삭제
+              </button>
+              <li>차단</li>
+            </ul>
+          </li>
+        ))}
+
+        <button class="addF">친구추가</button>
+      </ul>
+    </>
   );
 };
 export default UserList;

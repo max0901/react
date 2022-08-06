@@ -372,7 +372,9 @@ footer {
   width: calc(100% - 78px);
   height: 100%;
 }
-
+#chat_userList_box > .addF {
+  position: relative;
+}
 .chat_userList_button {
   display: flex;
   align-content: auto;
